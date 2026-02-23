@@ -1,0 +1,25 @@
+{
+    "name": "@joinpounce/worker",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "build": "tsc",
+        "dev": "tsc --watch",
+        "typecheck": "tsc --noEmit",
+        "price-check": "node dist/price-check.js",
+        "notify": "node dist/notify.js",
+        "dead-links": "node dist/dead-links.js"
+    },
+    "dependencies": {
+        "@joinpounce/shared": "*",
+        "@sentry/node": "^8.0.0",
+        "firebase-admin": "^12.1.0",
+        "ioredis": "^5.3.2",
+        "pg": "^8.11.5"
+    },
+    "devDependencies": {
+        "@types/node": "^20.12.12",
+        "@types/pg": "^8.11.6",
+        "typescript": "^5.4.5"
+    }
+}

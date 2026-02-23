@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --navy-950: #050410;
+    --electric-500: #3b82f6;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-navy-950 text-white;
+  }
+
+  ::selection {
+    @apply bg-electric-600 text-white;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-xl
+           bg-electric-600 hover:bg-electric-500 text-white font-semibold
+           transition-all duration-200 ease-out shadow-lg shadow-electric-900/30
+           hover:shadow-electric-600/40 hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-xl
+           border border-white/20 hover:border-white/40 text-white font-semibold
+           bg-white/5 hover:bg-white/10 backdrop-blur-sm
+           transition-all duration-200 ease-out;
+  }
+
+  .card-glass {
+    @apply rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm
+           shadow-xl shadow-black/20;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent
+           bg-gradient-to-r from-electric-400 to-electric-300;
+  }
+}
