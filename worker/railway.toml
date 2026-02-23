@@ -1,0 +1,17 @@
+# railway.toml — placed in /worker
+# Root Directory for this service: /worker
+# Railway will use this file when deploying cron worker services.
+# Each cron service (price-checker, notify-dispatcher, dead-link-checker)
+# uses the same /worker source but different startCommands configured
+# in the Railway dashboard per service.
+
+[build]
+builder = "nixpacks"
+buildCommand = "npm install && npm run build"
+
+[deploy]
+# startCommand is overridden per-service in the Railway dashboard:
+#   price-checker:    node dist/price-check.js
+#   notify-dispatcher: node dist/notify.js
+#   dead-link-checker: node dist/dead-links.js
+startCommand = "node dist/price-check.js"

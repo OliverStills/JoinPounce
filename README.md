@@ -128,17 +128,25 @@ npm run dev:web    # Web on :3000
 
 ## Deployment (Railway)
 
-All services deploy via `railway.toml` in the repo root:
+This is a monorepo. Each service is a separate Railway service with its **Root Directory** set in the Railway dashboard. Each subdirectory has its own `railway.toml`.
 
-- **web** → builds from `/web`, starts with `npm start`
-- **api** → builds from `/api`, starts with `node dist/index.js`
-- **price-checker** → builds from `/worker`, runs cron `0 9 * * *`
-- **notify-dispatcher** → builds from `/worker`, runs cron `30 9 * * *`
-- **dead-link-checker** → builds from `/worker`, runs cron `0 3 * * *`
+### One-time Railway Setup (per service)
+
+In the Railway dashboard → your project → each service → Settings → Source:
+
+| Service | Root Directory | Start Command | Cron Schedule |
+|---|---|---|---|
+| `web` | `/web` | `npm start` | — |
+| `api` | `/api` | `node dist/index.js` | — |
+| `price-checker` | `/worker` | `node dist/price-check.js` | `0 9 * * *` UTC |
+| `notify-dispatcher` | `/worker` | `node dist/notify.js` | `30 9 * * *` UTC |
+| `dead-link-checker` | `/worker` | `node dist/dead-links.js` | `0 3 * * *` UTC |
+
+Each service's `railway.toml` lives in its subdirectory and is auto-detected when you set the Root Directory.
 
 Required Railway plugins: **PostgreSQL** + **Redis**
 
-Set all environment variables from `.env.example` in the Railway dashboard.
+Set all environment variables from `.env.example` in the Railway dashboard (Variables tab per service).
 
 ---
 

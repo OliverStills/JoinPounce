@@ -1,37 +1,20 @@
-[build]
-builder = "nixpacks"
+# JoinPounce — Railway Monorepo Configuration
+#
+# Railway does NOT support a root railway.toml that defines multiple services.
+# Instead, each service has its own railway.toml in its subdirectory,
+# and is configured in the Railway dashboard with "Root Directory" set accordingly.
+#
+# Service → Root Directory → railway.toml location:
+#   web              → /web     → /web/railway.toml
+#   api              → /api     → /api/railway.toml
+#   price-checker    → /worker  → /worker/railway.toml (startCommand: node dist/price-check.js)
+#   notify-dispatcher → /worker → /worker/railway.toml (startCommand: node dist/notify.js)
+#   dead-link-checker → /worker → /worker/railway.toml (startCommand: node dist/dead-links.js)
+#
+# Cron schedules (set in Railway dashboard per service):
+#   price-checker:     0 9 * * *   UTC
+#   notify-dispatcher: 30 9 * * *  UTC
+#   dead-link-checker: 0 3 * * *   UTC
+#
+# See README.md → Deployment section for setup instructions.
 
-[[services]]
-name = "web"
-source = "web"
-[services.deploy]
-startCommand = "npm start"
-healthcheckPath = "/"
-
-[[services]]
-name = "api"
-source = "api"
-[services.deploy]
-startCommand = "node dist/index.js"
-healthcheckPath = "/health"
-
-[[services]]
-name = "price-checker"
-source = "worker"
-[services.deploy]
-startCommand = "node dist/price-check.js"
-cronSchedule = "0 9 * * *"
-
-[[services]]
-name = "notify-dispatcher"
-source = "worker"
-[services.deploy]
-startCommand = "node dist/notify.js"
-cronSchedule = "30 9 * * *"
-
-[[services]]
-name = "dead-link-checker"
-source = "worker"
-[services.deploy]
-startCommand = "node dist/dead-links.js"
-cronSchedule = "0 3 * * *"

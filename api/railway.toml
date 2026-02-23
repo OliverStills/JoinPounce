@@ -1,0 +1,11 @@
+# railway.toml — placed in /api
+# Root Directory for this service: /api
+# Railway will use this file when deploying the "api" service.
+
+[build]
+builder = "nixpacks"
+buildCommand = "npm install && npm run build"
+
+[deploy]
+startCommand = "node dist/index.js"
+healthcheckPath = "/health"

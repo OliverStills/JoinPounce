@@ -1,0 +1,10 @@
+# railway.toml — placed in /web
+# Root Directory for this service: /web
+# Railway will use this file when deploying the "web" service.
+
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "npm start"
+healthcheckPath = "/"
